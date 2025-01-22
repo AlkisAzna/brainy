@@ -1,34 +1,19 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import Login from './pages/Login'
-import Dashboard from './pages/Dashboard'
-import ProtectedRoute from './components/ProtectedRoute'
-import './App.css'
+import 'src/global.css';
 
-function App() {
+import { Router } from 'src/routes/sections';
+
+import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
+
+import { ThemeProvider } from 'src/theme/theme-provider';
+
+// ----------------------------------------------------------------------
+
+export default function App() {
+  useScrollToTop();
+
   return (
-    <Router>
-      <Routes>
-        {/* Redirect root to login */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        
-        {/* Login route */}
-        <Route path="/login" element={<Login />} />
-        
-        {/* Protected dashboard route */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        
-        {/* Catch all other routes and redirect to login */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </Router>
-  )
+    <ThemeProvider>
+      <Router />
+    </ThemeProvider>
+  );
 }
-
-export default App
